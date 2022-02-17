@@ -15,6 +15,18 @@ const FileUploader = () => {
     }
   };
 
+  const handleFileReader = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+    const file = e.target.files;
+
+    if (file) {
+      reader.readAsText(file[0], "UTF-8");
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        console.log(JSON.parse((e.target?.result as string) || ""));
+      };
+    }
+  };
+
   return (
     <Styled.Container>
       <Styled.FileName>
@@ -26,7 +38,10 @@ const FileUploader = () => {
           type="file"
           accept=".json"
           id="file-uploader"
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+            handleFileReader(e);
+          }}
         />
       </Styled.Wrap>
     </Styled.Container>
