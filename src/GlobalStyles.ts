@@ -14,6 +14,10 @@ html, body {
   overflow-x: hidden;
 }
 
+::selection {
+  background-color: #999ccc;
+}
+
 html, body, #root {
   height: 100%;
 }
