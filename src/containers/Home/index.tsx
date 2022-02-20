@@ -15,6 +15,7 @@ const HomeContainer = () => {
   const [fileName, setFileName] = useState("");
   const [fileData, setFileData] = useState<ParsedDataType | null>(null);
   const [dataTree, setDataTree] = useState<NestedObjectType | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
     if (fileData) {
@@ -36,8 +37,6 @@ const HomeContainer = () => {
     }
   }, [fileData]);
 
-  console.log(dataTree);
-
   return (
     <Layout>
       <Heading m="0 0 50px">json-navigator🧭</Heading>
@@ -46,7 +45,13 @@ const HomeContainer = () => {
         setFileName={setFileName}
         setFileData={setFileData}
       />
-      {dataTree && <DataTree dataTree={dataTree} />}
+      {dataTree && (
+        <DataTree
+          dataTree={dataTree}
+          selected={selected}
+          setSelected={setSelected}
+        />
+      )}
     </Layout>
   );
 };

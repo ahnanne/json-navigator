@@ -6,7 +6,7 @@ export const Wrap = styled.div<{ indent?: string }>`
   width: 100%;
 `;
 
-export const Button = styled.div`
+export const Button = styled.button`
   ${buttonReset}
   width: 100%;
   height: 30px;
@@ -15,7 +15,8 @@ export const Button = styled.div`
   border-radius: 5px;
   margin-bottom: 10px;
   padding-left: 8px;
-
+  text-align: left;
+  color: #fafafa;
   background-color: #999ccc90;
   transition: background-color 100ms linear;
 
