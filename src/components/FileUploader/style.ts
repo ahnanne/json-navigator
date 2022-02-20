@@ -33,8 +33,6 @@ export const Input = styled.input`
   padding: 0;
   overflow: hidden;
   border: 0;
-
-  background-color: yellow;
 `;
 
 export const FileName = styled.div`
