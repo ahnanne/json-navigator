@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 
 import { NestedObjectType } from "types/navigator";
+import { DataTreeControlProps } from "types/props";
 
 import * as Styled from "./style";
 
@@ -8,18 +9,24 @@ type Props = {
   prop: string;
   value: string | NestedObjectType;
   id: string;
-  selected: string | null;
-  setSelected: (target: string | null) => void;
+  depth: number;
 };
 
 const INDENT = "20px";
-const PropButton = ({ prop, value, id, selected, setSelected }: Props) => {
+const PropButton = ({
+  prop,
+  value,
+  id,
+  depth,
+  selected,
+  setSelected,
+}: Props & DataTreeControlProps) => {
   const [showNestedObject, setShowNestedObject] = useState(false);
   const handleClick = useCallback(() => {
     setShowNestedObject(!showNestedObject);
     setSelected(id);
   }, [showNestedObject, setShowNestedObject]);
-  const isRender = selected && selected.includes(id);
+  const isRender = selected && (selected.includes(id + ".") || selected === id);
 
   useEffect(() => {
     if (!isRender) {
@@ -47,6 +54,7 @@ const PropButton = ({ prop, value, id, selected, setSelected }: Props) => {
                   prop={key}
                   value={value[key]}
                   id={id + "." + key}
+                  depth={depth + 1}
                   selected={selected}
                   setSelected={setSelected}
                 />
