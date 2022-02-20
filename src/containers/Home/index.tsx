@@ -9,10 +9,13 @@ import getMaxDepth from "utils/getMaxDepth";
 import convertData from "utils/convertData";
 
 import { NestedObjectType, ParsedDataType } from "types/navigator";
+import DataTree from "components/DataTree";
 
 const HomeContainer = () => {
   const [fileName, setFileName] = useState("");
   const [fileData, setFileData] = useState<ParsedDataType | null>(null);
+  const [dataTree, setDataTree] = useState<NestedObjectType | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
     if (fileData) {
@@ -29,6 +32,8 @@ const HomeContainer = () => {
           prop,
         });
       }
+
+      setDataTree(obj);
     }
   }, [fileData]);
 
@@ -40,7 +45,13 @@ const HomeContainer = () => {
         setFileName={setFileName}
         setFileData={setFileData}
       />
-      {/* <AutoComplete /> */}
+      {dataTree && (
+        <DataTree
+          dataTree={dataTree}
+          selected={selected}
+          setSelected={setSelected}
+        />
+      )}
     </Layout>
   );
 };
