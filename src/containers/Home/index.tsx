@@ -1,16 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Layout from "components/Layout";
 import Heading from "components/Heading";
 import FileUploader from "components/FileUploader";
+// import AutoComplete from "components/AutoComplete";
+
+import getMaxDepth from "utils/getMaxDepth";
+import convertData from "utils/convertData";
+
+import { NestedObjectType, ParsedDataType } from "types/navigator";
 
 const HomeContainer = () => {
   const [fileName, setFileName] = useState("");
-  const [fileData, setFileData] = useState<{ [key: string]: string } | null>(
-    null
-  );
+  const [fileData, setFileData] = useState<ParsedDataType | null>(null);
 
-  console.log(fileData);
+  useEffect(() => {
+    if (fileData) {
+      const obj: NestedObjectType = {};
+
+      for (const prop in fileData) {
+        const spl = prop.split(".");
+        convertData({
+          fileData,
+          depth: 0,
+          maxDepth: getMaxDepth(fileData),
+          obj,
+          spl,
+          prop,
+        });
+      }
+    }
+  }, [fileData]);
 
   return (
     <Layout>
@@ -20,6 +40,7 @@ const HomeContainer = () => {
         setFileName={setFileName}
         setFileData={setFileData}
       />
+      {/* <AutoComplete /> */}
     </Layout>
   );
 };
