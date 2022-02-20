@@ -3,13 +3,12 @@ import { NestedObjectType, ParsedDataType } from "types/navigator";
 type Params = {
   fileData: ParsedDataType;
   depth: number;
-  maxDepth: number;
   obj: NestedObjectType;
   spl: string[];
   prop: string;
 };
 
-const convertData = ({ fileData, depth, maxDepth, obj, spl, prop }: Params) => {
+const convertData = ({ fileData, depth, obj, spl, prop }: Params) => {
   obj[spl[depth]] =
     spl.length > depth + 1
       ? obj[spl[depth]]
@@ -21,7 +20,6 @@ const convertData = ({ fileData, depth, maxDepth, obj, spl, prop }: Params) => {
     convertData({
       fileData,
       depth: depth + 1,
-      maxDepth,
       obj: obj[spl[depth]] as NestedObjectType,
       spl,
       prop,
