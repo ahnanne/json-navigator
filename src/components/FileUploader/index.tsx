@@ -10,7 +10,7 @@ const FileUploader = (props: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files;
 
-    if (file) {
+    if (file && file[0]) {
       props.setFileName(file[0].name);
     } else {
       props.setFileName("");
@@ -21,7 +21,7 @@ const FileUploader = (props: Props) => {
     const reader = new FileReader();
     const file = e.target.files;
 
-    if (file) {
+    if (file && file[0]) {
       reader.readAsText(file[0], "UTF-8");
       reader.onload = (e: ProgressEvent<FileReader>) =>
         props.setFileData(JSON.parse((e.target?.result as string) || ""));
