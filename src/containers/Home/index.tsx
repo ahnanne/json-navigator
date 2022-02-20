@@ -5,7 +5,6 @@ import Heading from "components/Heading";
 import FileUploader from "components/FileUploader";
 import Search from "components/Search";
 
-import getMaxDepth from "utils/getMaxDepth";
 import convertData from "utils/convertData";
 
 import { NestedObjectType, ParsedDataType } from "types/navigator";
@@ -31,7 +30,6 @@ const HomeContainer = () => {
         convertData({
           fileData,
           depth: 0,
-          maxDepth: getMaxDepth(fileData),
           obj,
           spl,
           prop,
