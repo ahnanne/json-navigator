@@ -31,3 +31,15 @@ export const ellipsis = css`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const buttonCommon = css`
+  ${buttonReset}
+  border-radius: 5px;
+  color: #fafafa;
+  background-color: #999ccc90;
+  transition: background-color 100ms linear;
+
+  &:hover {
+    background-color: #999ccc;
+  }
+`;

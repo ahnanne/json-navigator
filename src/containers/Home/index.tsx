@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Layout from "components/Layout";
 import Heading from "components/Heading";
 import FileUploader from "components/FileUploader";
-// import AutoComplete from "components/AutoComplete";
+import Search from "components/Search";
 
 import getMaxDepth from "utils/getMaxDepth";
 import convertData from "utils/convertData";
@@ -16,12 +16,17 @@ const HomeContainer = () => {
   const [fileData, setFileData] = useState<ParsedDataType | null>(null);
   const [dataTree, setDataTree] = useState<NestedObjectType | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     if (fileData) {
       const obj: NestedObjectType = {};
 
       for (const prop in fileData) {
+        if (keyword.length) {
+          if (!prop.includes(keyword)) continue;
+        }
+
         const spl = prop.split(".");
         convertData({
           fileData,
@@ -35,7 +40,7 @@ const HomeContainer = () => {
 
       setDataTree(obj);
     }
-  }, [fileData]);
+  }, [fileData, keyword]);
 
   return (
     <Layout>
@@ -46,11 +51,15 @@ const HomeContainer = () => {
         setFileData={setFileData}
       />
       {dataTree && (
-        <DataTree
-          dataTree={dataTree}
-          selected={selected}
-          setSelected={setSelected}
-        />
+        <>
+          <Search keyword={keyword} setKeyword={setKeyword} />
+          <DataTree
+            dataTree={dataTree}
+            selected={selected}
+            setSelected={setSelected}
+            keyword={keyword}
+          />
+        </>
       )}
     </Layout>
   );

@@ -1,35 +1,47 @@
-import styled from "styled-components";
-import { buttonReset } from "styles/common";
+import styled, { css } from "styled-components";
+import { buttonCommon } from "styles/common";
 
 export const Wrap = styled.div<{ indent?: string }>`
   padding-left: ${({ indent }) => indent};
   width: 100%;
 `;
 
-export const Button = styled.button`
-  ${buttonReset}
-  width: 100%;
-  height: 30px;
+type TextProp = {
+  isSmall?: boolean;
+  isHighlighted?: boolean;
+};
+export const Text = styled.span<TextProp>`
+  display: inline-block;
+
   line-height: 30px;
   font-size: 16px;
-  border-radius: 5px;
+
+  ${(props) =>
+    props.isSmall &&
+    css`
+      line-height: 14px;
+      font-size: 14px;
+    `}
+
+  ${(props) =>
+    props.isHighlighted &&
+    css`
+      color: #61e584;
+      font-weight: 700;
+    `}
+`;
+
+export const Button = styled.button`
+  ${buttonCommon}
+  width: 100%;
+  height: 30px;
   margin-bottom: 10px;
   padding-left: 8px;
   text-align: left;
-  color: #fafafa;
-  background-color: #999ccc90;
-  transition: background-color 100ms linear;
-
-  &:hover {
-    background-color: #999ccc;
-  }
 `;
 
-export const Value = styled.p<{ indent: string }>`
+export const Value = styled.div<{ indent: string }>`
   width: 100%;
-  height: 14px;
-  line-height: 14px;
-  font-size: 14px;
   margin-bottom: 10px;
   padding-left: ${({ indent }) => indent};
 `;

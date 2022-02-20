@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { NestedObjectType } from "types/navigator";
 import { DataTreeControlProps } from "types/props";
@@ -20,13 +20,17 @@ const PropButton = ({
   depth,
   selected,
   setSelected,
+  keyword,
 }: Props & DataTreeControlProps) => {
   const [showNestedObject, setShowNestedObject] = useState(false);
-  const handleClick = useCallback(() => {
+
+  const handleClick = () => {
     setShowNestedObject(!showNestedObject);
     setSelected(id);
-  }, [showNestedObject, setShowNestedObject]);
+  };
+
   const isRender = selected && (selected.includes(id + ".") || selected === id);
+  const isSearching = !!keyword.length;
 
   useEffect(() => {
     if (!isRender) {
@@ -40,12 +44,21 @@ const PropButton = ({
         <Styled.Icon aria-hidden showNestedObject={showNestedObject}>
           ▶
         </Styled.Icon>
-        {prop}
+        <Styled.Text isHighlighted={isSearching && prop.includes(keyword)}>
+          {prop}
+        </Styled.Text>
       </Styled.Button>
       {showNestedObject && isRender && (
         <>
           {typeof value === "string" ? (
-            <Styled.Value indent={INDENT}>{value}</Styled.Value>
+            <Styled.Value indent={INDENT}>
+              <Styled.Text
+                isSmall
+                isHighlighted={isSearching && value.includes(keyword)}
+              >
+                {value}
+              </Styled.Text>
+            </Styled.Value>
           ) : (
             <Styled.Wrap indent={INDENT}>
               {Object.keys(value).map((key) => (
@@ -57,6 +70,7 @@ const PropButton = ({
                   depth={depth + 1}
                   selected={selected}
                   setSelected={setSelected}
+                  keyword={keyword}
                 />
               ))}
             </Styled.Wrap>

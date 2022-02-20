@@ -13,6 +13,7 @@ const DataTree = ({
   dataTree,
   selected,
   setSelected,
+  keyword,
 }: Props & DataTreeControlProps) => {
   return (
     <Styled.Container>
@@ -25,6 +26,7 @@ const DataTree = ({
           depth={0}
           selected={selected}
           setSelected={setSelected}
+          keyword={keyword}
         />
       ))}
     </Styled.Container>
