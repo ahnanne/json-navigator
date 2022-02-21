@@ -20,7 +20,9 @@ const Search = (props: Props) => {
 
   return (
     <Styled.Container>
+      <Styled.HiddenLabel htmlFor="search-input">검색</Styled.HiddenLabel>
       <Styled.Input
+        id="search-input"
         value={input}
         onChange={handleChange}
         onKeyDown={handleEnter}
