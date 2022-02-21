@@ -63,7 +63,7 @@ const PropButton = ({
             <Styled.Wrap indent={INDENT}>
               {Object.keys(value).map((key) => (
                 <PropButton
-                  key={key}
+                  key={id + "." + key}
                   prop={key}
                   value={value[key]}
                   id={id + "." + key}
