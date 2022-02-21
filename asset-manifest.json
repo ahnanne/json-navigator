@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/json-navigator/static/js/main.c231412f.js",
+    "main.js": "/json-navigator/static/js/main.c934f35c.js",
     "index.html": "/json-navigator/index.html",
-    "main.c231412f.js.map": "/json-navigator/static/js/main.c231412f.js.map"
+    "main.c934f35c.js.map": "/json-navigator/static/js/main.c934f35c.js.map"
   },
   "entrypoints": [
-    "static/js/main.c231412f.js"
+    "static/js/main.c934f35c.js"
   ]
 }
