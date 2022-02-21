@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/json-navigator/static/js/main.c231412f.js",
+    "index.html": "/json-navigator/index.html",
+    "main.c231412f.js.map": "/json-navigator/static/js/main.c231412f.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c231412f.js"
+  ]
+}
