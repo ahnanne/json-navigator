@@ -20,9 +20,10 @@ const HomeContainer = () => {
   useEffect(() => {
     if (fileData) {
       const obj: NestedObjectType = {};
+      const isSearching = !!keyword.length;
 
       for (const prop in fileData) {
-        if (keyword.length) {
+        if (isSearching) {
           if (!prop.includes(keyword)) continue;
         }
 

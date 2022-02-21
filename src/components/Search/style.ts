@@ -1,11 +1,15 @@
 import styled from "styled-components";
-import { buttonCommon } from "styles/common";
+import { buttonCommon, a11yHidden } from "styles/common";
 
 export const Container = styled.div`
   flex-flow: row nowrap;
   display: flex;
   width: 600px;
   margin-top: 40px;
+`;
+
+export const HiddenLabel = styled.label`
+  ${a11yHidden}
 `;
 
 export const Input = styled.input`
