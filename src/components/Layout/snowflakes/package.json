@@ -1,0 +1,22 @@
+{
+  "name": "@yein/snowflakes",
+  "collaborators": [
+    "Yein Ahn <yein.ahn9@gmail.com>"
+  ],
+  "description": "generate snowflakes",
+  "version": "0.1.1",
+  "license": "MIT/Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ahnanne/snowflakes"
+  },
+  "files": [
+    "snowflakes_bg.wasm",
+    "snowflakes.js",
+    "snowflakes_bg.js",
+    "snowflakes.d.ts"
+  ],
+  "module": "snowflakes.js",
+  "types": "snowflakes.d.ts",
+  "sideEffects": false
+}
