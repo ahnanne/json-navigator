@@ -35,8 +35,8 @@ const Snowfall = () => {
     const canvas = canvasRef.current;
     if (canvas) {
       const ctx = canvas.getContext("2d");
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+      const width = document.documentElement.clientWidth;
+      const height = document.documentElement.clientHeight;
 
       canvas.width = width;
       canvas.height = height;
@@ -53,10 +53,10 @@ const Snowfall = () => {
       // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#buffer
 
       const render = () => {
-        wasm.update_snowflakes(width, height);
-
+        wasm.update_snowflakes(canvas.width, canvas.height);
+        
         if (ctx) {
-          ctx.clearRect(0, 0, width, height);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
 
           for (let i = 0; i < snowflakes.length; i += 3) {
