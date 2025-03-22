@@ -1,9 +1,23 @@
-import { useEffect, useRef, useState } from "react";
-import { loadWasm ,WasmExports } from "wasmLoader";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { loadWasm, WasmExports } from "wasmLoader";
+import { debounce } from 'lodash';
 
 const Snowfall = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [wasm, setWasm] = useState<WasmExports | null>(null);
+
+  const handleClientResize = useCallback(
+    debounce(() => {
+      if (canvasRef.current) {
+        const width = document.documentElement.clientWidth;
+        const height = document.documentElement.clientHeight;
+    
+        canvasRef.current.width = width;
+        canvasRef.current.height = height;
+      }
+    }, 200),
+    [canvasRef]
+  );
 
   useEffect(() => {
     loadWasm().then((wasm) => {
@@ -89,7 +103,15 @@ const Snowfall = () => {
     }
   }, [wasm]);
 
-  return <canvas ref={canvasRef} style={{ position: "fixed", top: 0, left: 0, width: "100vw", height: "100vh", pointerEvents: "none"  }} />
+  useEffect(() => {
+    window.addEventListener('resize', handleClientResize);
+
+    return () => {
+      window.removeEventListener('resize', handleClientResize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} style={{ position: "fixed", top: 0, right: 0, bottom: 0, left: 0, width: "100vw", height: "100vh", pointerEvents: "none"  }} />
 };
 
 export default Snowfall;
