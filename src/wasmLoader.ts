@@ -5,8 +5,11 @@
 // }
 
 export interface WasmExports {
+  /** 눈송이들 생성 */
   init_snowflakes: (width: number, height: number) => void;
+  /** 눈송이들 좌표 변경 */
   update_snowflakes: (width: number, height: number) => void;
+  /** 눈송이들 데이터가 저장된 메모리의 시작 위치(byte 단위)를 반환 */
   get_snowflakes: () => number;
   memory: Float32Array;
 }
