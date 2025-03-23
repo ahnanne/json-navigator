@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { loadWasm, WasmExports } from "wasmLoader";
 import { debounce } from 'lodash';
 
+const SNOWFLAKE_FIELDS = 4; // 눈송이 구조체의 필드 개수
+
 const Snowfall = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [wasm, setWasm] = useState<WasmExports | null>(null);
@@ -47,7 +49,7 @@ const Snowfall = () => {
       const snowflakes = new Float32Array( // 숫자 하나 당 4 byte
         wasm.memory.buffer, // 버퍼(wasm가 사용하는 메모리 공간 전체) - Emscripten 기본값은 16MB(256 페이지, byte length=16908288)
         wasm.get_snowflakes(), // 버퍼의 어느 지점부터 데이터를 읽을지 전달
-        100 * 3, // 읽어올 요소의 개수 (눈송이 100개 * 3개 필드(x, y, speed) -> 총 1200 byte)
+        100 * SNOWFLAKE_FIELDS, // 읽어올 요소의 개수 (눈송이 100개 * 눈송이 구조체 필드 개수 -> 총 1200 byte)
       );
       // * 참고:
       // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#buffer
@@ -59,7 +61,7 @@ const Snowfall = () => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
 
-          for (let i = 0; i < snowflakes.length; i += 3) {
+          for (let i = 0; i < snowflakes.length; i += SNOWFLAKE_FIELDS) {
             const gradient = ctx.createRadialGradient(
               snowflakes[i],
               snowflakes[i + 1],
@@ -71,15 +73,15 @@ const Snowfall = () => {
 
             gradient.addColorStop(
               0,
-              `rgba(255, 255, 255, ${snowflakes[i + 2]})` // TODO: opacity 필드 값으로 교체
+              `rgba(255, 255, 255, ${snowflakes[i + 3]})` // TODO: opacity 필드 값으로 교체
             );
             gradient.addColorStop(
               0,
-              `rgba(210, 236, 242, ${snowflakes[i + 2]})`
+              `rgba(210, 236, 242, ${snowflakes[i + 3]})`
             );
             gradient.addColorStop(
               0,
-              `rgba(237, 247, 249, ${snowflakes[i + 2]})`
+              `rgba(237, 247, 249, ${snowflakes[i + 3]})`
             );
 
             ctx.fillStyle = gradient;
