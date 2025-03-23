@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { loadWasm, WasmExports } from "wasmLoader";
 import { debounce } from 'lodash';
 
-const SNOWFLAKE_FIELDS = 4; // 눈송이 구조체의 필드 개수
+const SNOWFLAKE_FIELDS = 5; // 눈송이 구조체의 필드 개수
 
 const Snowfall = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -73,15 +73,15 @@ const Snowfall = () => {
 
             gradient.addColorStop(
               0,
-              `rgba(255, 255, 255, ${snowflakes[i + 3]})` // TODO: opacity 필드 값으로 교체
+              `rgba(255, 255, 255, ${snowflakes[i + 4]})` // TODO: opacity 필드 값으로 교체
             );
             gradient.addColorStop(
               0,
-              `rgba(210, 236, 242, ${snowflakes[i + 3]})`
+              `rgba(210, 236, 242, ${snowflakes[i + 4]})`
             );
             gradient.addColorStop(
               0,
-              `rgba(237, 247, 249, ${snowflakes[i + 3]})`
+              `rgba(237, 247, 249, ${snowflakes[i + 4]})`
             );
 
             ctx.fillStyle = gradient;
