@@ -2,7 +2,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { loadWasm, WasmExports } from "wasmLoader";
 import { debounce } from 'lodash';
 
-const SNOWFLAKE_FIELDS = 5; // 눈송이 구조체의 필드 개수
+const NUMBER_OF_SNOWFLAKES = 300;
+const SNOWFLAKE_FIELDS = 6; // 눈송이 구조체의 필드 개수
 
 const Snowfall = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -49,7 +50,7 @@ const Snowfall = () => {
       const snowflakes = new Float32Array( // 숫자 하나 당 4 byte
         wasm.memory.buffer, // 버퍼(wasm가 사용하는 메모리 공간 전체) - Emscripten 기본값은 16MB(256 페이지, byte length=16908288)
         wasm.get_snowflakes(), // 버퍼의 어느 지점부터 데이터를 읽을지 전달
-        100 * SNOWFLAKE_FIELDS, // 읽어올 요소의 개수 (눈송이 100개 * 눈송이 구조체 필드 개수 -> 총 1200 byte)
+        NUMBER_OF_SNOWFLAKES * SNOWFLAKE_FIELDS, // 읽어올 요소의 개수 (눈송이 100개 * 눈송이 구조체 필드 개수 -> 총 1200 byte)
       );
       // * 참고:
       // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/TypedArray#buffer
@@ -68,12 +69,12 @@ const Snowfall = () => {
               0,
               snowflakes[i],
               snowflakes[i + 1],
-              3,
+              snowflakes[i + 5],
             );
 
             gradient.addColorStop(
               0,
-              `rgba(255, 255, 255, ${snowflakes[i + 4]})` // TODO: opacity 필드 값으로 교체
+              `rgba(255, 255, 255, ${snowflakes[i + 4]})`
             );
             gradient.addColorStop(
               0,
@@ -86,7 +87,7 @@ const Snowfall = () => {
 
             ctx.fillStyle = gradient;
             ctx.beginPath();
-            ctx.arc(snowflakes[i], snowflakes[i + 1], 3, 0, Math.PI * 2);
+            ctx.arc(snowflakes[i], snowflakes[i + 1], snowflakes[i + 5], 0, Math.PI * 2);
             ctx.fill();
 
             ctx.shadowOffsetX = 0;
