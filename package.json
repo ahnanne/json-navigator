@@ -19,7 +19,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +44,7 @@
   "devDependencies": {
     "@types/lodash": "^4.17.16",
     "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.22"
+    "@types/styled-components": "^5.1.22",
+    "gh-pages": "^6.3.0"
   }
 }
