@@ -1,2 +1,2 @@
-/static/js/*.wasm
+/wasm/*.wasm
   Content-Type: application/wasm
